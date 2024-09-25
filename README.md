@@ -18,7 +18,28 @@ Además, el proyecto incluye estudios sobre redes de prueba IEEE30 e IEEE118 par
 
 #### Planteo del problema de Optimización
 
-El problema de Despacho Óptimo de Reactiva se plantea como un problema de optimización bajo restricciones. Existen varias alternativas para el planteo de dicho problema, pero lo que se busca es minimizar las pérdidas eléctricas en la red, sujeto a no sobrepasar límites se seguridad y funcionamiento de la red.
+El problema de Despacho Óptimo de Reactiva se plantea como un problema de optimización bajo restricciones. Existen varias alternativas para el planteo de dicho problema, pero lo que se busca es minimizar las pérdidas eléctricas en la red, sujeto a no sobrepasar límites se seguridad y funcionamiento de la red. Esto es:
+
+\begin{equation}
+    \sum_{(i,j) \in \mathcal{L}} Re \Big(v_i Y_{line, i\to j} \mathbf{v} + v_j Y_{line, i\to j} \mathbf{v}\Big) 
+    \label{eq:ORPD}
+\end{equation}
+sujeto a:
+\begin{subequations}
+\label{restriccionesORPD}
+\begin{align}
+         \mathbf{s}^{gen,v} + \mathbf{s}^{gen,est} + \mathbf{s}^{gen,ref} + \mathbf{s}^{comp} - \mathbf{s}^{dem} = diag(\mathbf{v})Y_{bus}^*\mathbf{v}^* \\
+     | Y_{line, i\to j} \mathbf{v}|  \leq I_{i\to j,\text{max}} \quad \forall (i,j) \in \mathcal{L} \cup \mathcal{T} \\
+    | Y_{line, j\to i} \mathbf{v}| \leq I_{j\to i,\text{max}} \quad \forall (i,j) \in \mathcal{L} \cup \mathcal{T} \\
+    v_{min,i} \leq v_{m,i} \leq v_{max,i} \quad \forall i \in \mathcal{B} \\
+\delta_{min,i } \leq \delta_i \leq \delta_{max, i} \quad  \forall i \in \mathcal{B} \\
+    q_{i,min}^{gen,v} \leq q_i^{gen,v} \leq q_{i,max}^{gen,v} \quad \forall i \in \mathcal{G} \\
+    q_{i,min}^{comp} \leq q_i^{comp} \leq q_{i,max}^{comp} \quad \forall i \in \mathcal{R} \\
+    p_{i,min}^{gen,ref} \leq p_i^{gen,ref} \leq p_{i,max}^{gen,ref} \quad \forall i \in \mathcal{X} \\
+    q_{i,min}^{gen,ref} \leq q_i^{gen,ref} \leq q_{i,max}^{gen,ref} \quad \forall i \in \mathcal{X}
+\end{align}
+\end{subequations}
+
 
 #### Cómo se conforma el modelo de la red
 
