@@ -8,6 +8,10 @@ Este repositorio incluye el código necesario para entrenar modelos de aprendiza
 
 A continuación, se brindan instrucciones detalladas sobre cómo entrenar los modelos y una descripción más extensa del proyecto. Para más información técnica y teórica, consultar la documentación completa de la tesis en el siguiente [enlace](link a la documentación).
 
+HABLAR DE QUE EN LOS ULTIMOS AÑOS ESTO COBRO MUCHA IMPORTANCIA Y BLA BLA
+DECIR QUE SE PROPONE EXPLORAR TANTO SUP COMO UNSUP Y FCNN Y GNN Y POR QUE
+DECIR: A CONTINUACION SE INCLUYE UNA BREVE DESCRIPCION DEL PROYECTO, PARA MAS INFO CONSULTAR LA DOC
+
 ### Despacho Óptimo de Potencia Reactiva en la Red Eléctrica Uruguaya utilizando Aprendizaje Automático
 
 Este proyecto se centra en la aplicación de estrategias de aprendizaje automático para resolver el Despacho Óptimo de Potencia Reactiva (ORPD) en la red eléctrica uruguaya, con el objetivo de minimizar pérdidas y asegurar la estabilidad del sistema. Para ello, se utilizan redes neuronales, tanto completamente conectadas (FCNN) como redes neuronales sobre grafos (GNN), aprovechando la capacidad de estas últimas para modelar la estructura de la red eléctrica como un grafo.
@@ -18,36 +22,49 @@ Además, el proyecto incluye estudios sobre redes de prueba IEEE30 e IEEE118 par
 
 #### Planteo del problema de Optimización
 
-El problema de Despacho Óptimo de Reactiva se plantea como un problema de optimización bajo restricciones. Existen varias alternativas para el planteo de dicho problema, pero lo que se busca es minimizar las pérdidas eléctricas en la red, sujeto a no sobrepasar límites se seguridad y funcionamiento de la red. Esto es:
-
-\begin{equation}
-    \sum_{(i,j) \in \mathcal{L}} Re \Big(v_i Y_{line, i\to j} \mathbf{v} + v_j Y_{line, i\to j} \mathbf{v}\Big) 
-    \label{eq:ORPD}
-\end{equation}
-sujeto a:
-\begin{subequations}
-\label{restriccionesORPD}
-\begin{align}
-         \mathbf{s}^{gen,v} + \mathbf{s}^{gen,est} + \mathbf{s}^{gen,ref} + \mathbf{s}^{comp} - \mathbf{s}^{dem} = diag(\mathbf{v})Y_{bus}^*\mathbf{v}^* \\
-     | Y_{line, i\to j} \mathbf{v}|  \leq I_{i\to j,\text{max}} \quad \forall (i,j) \in \mathcal{L} \cup \mathcal{T} \\
-    | Y_{line, j\to i} \mathbf{v}| \leq I_{j\to i,\text{max}} \quad \forall (i,j) \in \mathcal{L} \cup \mathcal{T} \\
-    v_{min,i} \leq v_{m,i} \leq v_{max,i} \quad \forall i \in \mathcal{B} \\
-\delta_{min,i } \leq \delta_i \leq \delta_{max, i} \quad  \forall i \in \mathcal{B} \\
-    q_{i,min}^{gen,v} \leq q_i^{gen,v} \leq q_{i,max}^{gen,v} \quad \forall i \in \mathcal{G} \\
-    q_{i,min}^{comp} \leq q_i^{comp} \leq q_{i,max}^{comp} \quad \forall i \in \mathcal{R} \\
-    p_{i,min}^{gen,ref} \leq p_i^{gen,ref} \leq p_{i,max}^{gen,ref} \quad \forall i \in \mathcal{X} \\
-    q_{i,min}^{gen,ref} \leq q_i^{gen,ref} \leq q_{i,max}^{gen,ref} \quad \forall i \in \mathcal{X}
-\end{align}
-\end{subequations}
+El problema de Despacho Óptimo de Potencia Reactiva (ORPD) se plantea como un problema de optimización sujeto a restricciones. Existen varias formulaciones posibles para este problema, pero el objetivo principal es minimizar las pérdidas eléctricas en la red, sin exceder los límites de seguridad y operatividad de la misma. Las restricciones del problema representan las limitaciones físicas que los componentes de la red imponen sobre los valores que pueden tomar las variables. La primera restricción es la ecuación de flujo de potencia, que establece la relación entre los voltajes y las potencias inyectadas en toda la red; por lo tanto, cualquier solución propuesta debe cumplirla. Además, existen restricciones a nivel de barras, donde se limita tanto la magnitud como los ángulos del voltaje. Por otro lado, se establece un límite físico para la corriente que una línea o transformador puede soportar de manera sostenida, el cual debe cumplirse para la corriente que circula en ambos sentidos. En cuanto a las potencias, hay restricciones en la capacidad de generar potencia reactiva tanto para los generadores controladores de voltaje como para los compensadores de reactiva. Finalmente, se imponen restricciones sobre la potencia activa y reactiva del generador de referencia.
 
 
-#### Cómo se conforma el modelo de la red
+### Redes IEEE
+Las redes de potencia IEEE son un conjunto de redes de transmisión presentadas como casos de estudio públicamente disponibles por la Universidad de Illinois a principios de los años 90's. Estas consisten en 7 redes que varían en tamaño desde 14 hasta 300 barras. Estas redes proporcionan un entorno controlado y bien documentado para probar y evaluar tanto algoritmos como técnicas de optimización antes de su implementación en la red uruguaya. A su vez, permiten explorar diferentes arquitecturas y estrategias, facilitando la identificación de mejores prácticas y posibles desafíos que podrían surgir en la aplicación a la red uruguaya. Debido a la popularidad de estas redes, la librería PandaPower ya presenta una implementación hecha para ellas, lo que facilita aún más su uso en simulaciones y análisis de redes eléctricas.
 
-Decir que se teinen buses, cargas, generadores, sgen
+En este trabajo se utilizan dos de estas redes; la IEEE30 e IEEE118, que cuentan con 30 y 118 barras respectivamente. La razón de utilizar la IEEE30 es contar con una red de tamaño chico, la cual dado su pequeño tamaño, hace que sea posible interpretar los resultados más intuitivamente, lo que es muy útil a la hora de detectar posibles causas de errores ante imprevistos. Por otro lado, la red IEEE118 es elegida ya que la cantidad de barras es similar a la red uruguaya, la cual tiene 107 barras. De esta forma se asegura que una estrategia operativa para la red 30 mantiene su validez para una red de tamaño similar a la uruguaya.
+
+#### Red Eléctrica Uruguaya
+
+El modelo de la red está armado en PandaPower, el cual se puede cargar mediante:
+
+`net = pp.from_pickle('uru_net.p')`
+
+Este modelo corresponde a una simplificación de la red eléctrica uruguaya, el cual posee un total de 107 barras, de las cuales 95 son en 150 kV y 12 en 500 kV. A su vez se tienen 144 líneas, de las cuales 14 conectan barras de 500 kV y 130 conectan barras de 150 kV. Todos las barras de 500 tienen asociados un transformador, que las conecta a una barra del mismo nombre pero a 150, por lo que hay también 12 transformadores. Cuenta además con 43 generadores, de los cuales 15 son controladores de voltaje, 27 son estáticos y hay 1 generador de referencia. Finalmente, se tienen 55 cargas y 6 compensadores de reactiva.
+
+#### Definición de entradas y salidas
+Definir que el objetivo es dado un estado, encontrar los voltajes de los generadores y los q de los shunts
 
 #### Alternativas para la resolución del problema
 
-En primer lugar, se ataca el problema mediante aprendizaje supervisado. Para esto, se dispone de un conjunto de datos de entrenamiento con sus respectivas salidas objetivo. Los datos constan de configuraciones de la red (
+En este trabajo, se abordan dos metodologías diferentes para la resolución de este problema. En primer lugar, se propone explorar algoritmos de aprendizaje supervisado. Para esto, se utiliza una base de datos con distintos estados de la red junto con sus respectivas variables de control óptimas, halladas previamente mediante el solver de PandaPower. De esta manera, se entrenan modelos FCNN y GNN para aprender este mapeo de entradas y salidas. La limitación que tendrán estos modelos, es que aprenderan a encontrar los mismos óptimos que un optimizador tradicional, por lo cual se esperan resultados con igual o peor desempeño que este en términos de pérdidas en la red. De todas maneras, el entrenar un modelo tiene la ventaja de que los recursos de cómputo se utilizan offline, reduciendo considerablemente tiempos de inferencia. En este caso se utiliza como función de pérdida se utiliza el error cuadrático medio.
+
+Por otro lado y a modo de exploración de distintos resultados, se implementa un modelo de aprendizaje no supervisado, donde la función de pérdida es el lagrangiano del problema de optimización. En este caso, el modelo no intenta copiar salidas de un optimizador, sino que iterativamente va aprendiendo a minimizar las pérdidas en la red, cumpliendo con las restricciones del problema.
+
+En el código se puede ver la implementación de los distintos modelos. DECIR EN QUE DIRECTORIO ESTA CADA COSA 
+
+
+#### Arquitecturas
+Las dos arquitecturas a probar en este trabajo son las redes neuronales completamente conectadas y las redes neuronales para datos en grafos. Estas consisten de una secuencia de capas lineales o convolucionales, intercaladas con funciones de activación. En este trabajo, se utiliza como función de activación Leaky ReLU.
+Además de las capas lineales y la no linealidad, se agrega una capa de normalización por lotes (o batch normalization). Esta consiste en agregar un proceso de normalización a la salida de las capas ocultas de la red neuronal, lo cual permite estabilizar y acelerar el proceso de entrenamiento.
+
+Finalmente se tiene el uso de máscara a la salida del predictor. La salida óptima consiste en los voltajes en generadores controlables y reactiva en los compensadores para todas las barras, rellenando con 0 aquellas barras que no tienen conectado este elemento. Por lo tanto, utilizar una máscara que multiplique la salida del predictor, llevando a cero las salidas que son siempre nulas, evita que este tenga que utilizar parte de su capacidad en aprender a llevar estas entradas a cero, potencialmente empeorando el desempeño.
+
+
+### Datos
+#### IEEE 
+En cuanto a las redes IEEE, ninguna de las dos ofrece un histórico de generación o demanda de potencia para entrenar los modelos. Esto implica que para trabajar con estas es necesario generar una base de datos sintética. Los datos que son necesarios simular son aquellos que se toman como entrada al problema. Recordando la formulación del problema en el capítulo 2, debemos generar valores de $\mathbf{p}^{dem}$, $\mathbf{q}^{dem}$ y $\mathbf{p}^{gen,v}$ (se omite $\mathbf{s}^{gen,est}$ ya que la red no presenta generadores estáticos).
+
+Como metodología utilizada para la generación de datos sintéticos se realiza un proceso  similar a los utilizados en otros trabajos que abordan este problema con aprendizaje automático \cite{paper_damian_sup}. Esta consiste en, para cada nodo, tomar valores nominales de $p^{dem,ref}_i$, $q^{dem,ref}_i$ y $p^{gen,v,ref}_i$. Estos valores nominales son información prevista por la red. Luego, a partir de estos valores, se genera una distribución de generación/demanda, que consiste en una uniforme entre $0.7$ y $1.3$ del valor de referencia. Es decir, $p^{dem}_i$, $q^{dem}_i$ y $p^{gen,v}_i$ se obtienen como:
+
+#### Resultados
+
 
 ### Reproducción de resultados
 En las carpetas .... ejecutar el codigo `train.py` indicando qué tipo de entrenamiento
