@@ -11,6 +11,7 @@ A continuación, se brindan instrucciones detalladas sobre cómo entrenar los mo
 HABLAR DE QUE EN LOS ULTIMOS AÑOS ESTO COBRO MUCHA IMPORTANCIA Y BLA BLA
 DECIR QUE SE PROPONE EXPLORAR TANTO SUP COMO UNSUP Y FCNN Y GNN Y POR QUE
 DECIR: A CONTINUACION SE INCLUYE UNA BREVE DESCRIPCION DEL PROYECTO, PARA MAS INFO CONSULTAR LA DOC
+DECIR QUE SE TOMA COMO PUNTO DE PARTIDA EL TRABAJO DE DAMIAN OWERKO
 
 ### Despacho Óptimo de Potencia Reactiva en la Red Eléctrica Uruguaya utilizando Aprendizaje Automático
 
@@ -59,9 +60,9 @@ Finalmente se tiene el uso de máscara a la salida del predictor. La salida ópt
 
 ### Datos
 #### IEEE 
-En cuanto a las redes IEEE, ninguna de las dos ofrece un histórico de generación o demanda de potencia para entrenar los modelos. Esto implica que para trabajar con estas es necesario generar una base de datos sintética. Los datos que son necesarios simular son aquellos que se toman como entrada al problema. Recordando la formulación del problema en el capítulo 2, debemos generar valores de $\mathbf{p}^{dem}$, $\mathbf{q}^{dem}$ y $\mathbf{p}^{gen,v}$ (se omite $\mathbf{s}^{gen,est}$ ya que la red no presenta generadores estáticos).
+En cuanto a las redes IEEE, ninguna de las dos ofrece un histórico de generación o demanda de potencia para entrenar los modelos. Esto implica que para trabajar con estas es necesario generar una base de datos sintética. Los datos que son necesarios simular son aquellos que se toman como entrada al problema. Se deben generar valores de potencia activa y reactiva demandada, y valores de potencia activa generada (se omiten los generadores estáticos ya que esta red no presenta generadores estáticos).
 
-Como metodología utilizada para la generación de datos sintéticos se realiza un proceso  similar a los utilizados en otros trabajos que abordan este problema con aprendizaje automático \cite{paper_damian_sup}. Esta consiste en, para cada nodo, tomar valores nominales de $p^{dem,ref}_i$, $q^{dem,ref}_i$ y $p^{gen,v,ref}_i$. Estos valores nominales son información prevista por la red. Luego, a partir de estos valores, se genera una distribución de generación/demanda, que consiste en una uniforme entre $0.7$ y $1.3$ del valor de referencia. Es decir, $p^{dem}_i$, $q^{dem}_i$ y $p^{gen,v}_i$ se obtienen como:
+Como metodología utilizada para la generación de datos sintéticos se realiza un proceso  similar a los utilizados en otros trabajos que abordan este problema con aprendizaje automático. Esta consiste en, para cada nodo, tomar valores nominales de potencia activa y reactiva de todos los nodos. Estos valores nominales son información prevista por la red. Luego, a partir de estos valores, se genera una distribución de generación/demanda, que consiste en una uniforme entre un 0.7 y 1.3 del valor de referencia. A partir de estos valores se halla el óptimo mediante la función `net.acopf()
 
 #### Resultados
 
