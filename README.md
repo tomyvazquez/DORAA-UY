@@ -3,13 +3,11 @@
 
 Este repositorio forma parte del proyecto de tesis desarrollado en la Facultad de Ingeniería de la UdelaR. El objetivo principal es demostrar cómo las técnicas de aprendizaje automático pueden ser aplicadas para resolver de manera eficiente el problema de Despacho Óptimo de Potencia Reactiva (ORPD) en la red eléctrica uruguaya. Al cabo de los últimos años, la exploración de estas técnicas para la toma de decisiones sobre las variables de control de las redes eléctricas ha sido foco de estudio por la comunidad, por lo cual es un tema candente en la actualidad. En esta tesis se ataca el problema mediante técnicas de aprendizaje supervisado y no supervisado, y arquitecturas de redes neuronales como lo son las FCNN (Fully Connected Neural Networks) y las GNN (Graph Neural Networks). Para este trabajo, se toma como punto de partida el trabajo realizado por Damian Owerko, Fernando Gama y Alejandro Ribeiro ([enlace1](https://arxiv.org/abs/1910.09658), [enlace2](https://arxiv.org/abs/2210.09277)).
 
-El proyecto busca optimizar el uso de los recursos de la red, mejorando tanto su estabilidad como su eficiencia energética. Como punto de partida, se utilizan las redes de prueba IEEE 30 e IEEE 118, que luego se extienden al modelo de la red eléctrica uruguaya con datos reales proporcionados por el Despacho Nacional de Cargas (DNC).
+El proyecto busca optimizar el uso de los recursos de la red, mejorando tanto su estabilidad como su eficiencia energética. Como punto de partida, se utilizan las redes de prueba IEEE 30 e IEEE 118, que luego se extienden al modelo de la red eléctrica uruguaya con datos reales proporcionados por el Despacho Nacional de Cargas (DNC). Cabe resaltar que el despacho de potencia activa en la red eléctrica uruguaya resulta relativamente sencillo, debido a la alta participación de energías renovables. Por lo cual, en esta tesis se da como conocido el despacho de activa, haciendo principal foco en la generación óptima de reactiva.
 
 Este repositorio incluye el código necesario para entrenar modelos de aprendizaje automático que optimizan el ORPD para cada una de las redes. La base de datos y el modelo de la red uruguaya se encuentran disponibles para su descarga [aquí](link a Drive).
 
-A continuación, se brindan instrucciones detalladas sobre cómo entrenar los modelos y una descripción más extensa del proyecto. Para más información técnica y teórica, consultar la documentación completa de la tesis en el siguiente [enlace](link a la documentación).
-
-HABLAR DE QUE LA ACTIVA ES DATO PORQUE EN URUGUAY EL DESPACHO ES SIMPLE
+A continuación, se brindan instrucciones detalladas sobre cómo entrenar los modelos y una descripción más extensa del proyecto. Todos los conceptos presentados en este repositorio son fuertemente abordados en la [documentación de esta tesis](Tesis_DORAA.pdf), por lo que las descripciones de las siguientes secciones son un acercameiento al problema. Por esto mismo, se recomienda fuertemente que los conceptos que se quieran abordar con profundidad sean consultados en la documentación, y si tienes alguna consulta en particular, puedes abrir un issue en este repositorio.
 
 ### Despacho Óptimo de Potencia Reactiva en la Red Eléctrica Uruguaya utilizando Aprendizaje Automático
 
@@ -77,6 +75,14 @@ Para entrenar los modelos, cada uno tiene su respectivo archivo `config.yaml` en
 ` pip install requirements.txt`
 
 ### Reproducción de resultados
-Este repositorio contiene varias carpetas, cada una de las cuales corresponde a una tipo de aprendizaje (supervisado o no supervisado) sobre una red en particular (IEEE o Uruguay). Además hay una carpeta donde se hace análisis sobre el grafo. Para entrenar los modelos, ejecutar el script `train.py --cfg <path-to-config.yaml>`. En caso de querer realizar búsqueda de hiperparámetros inteligente, ejecutar `train_optuna.py --cfg <path-to-config.yaml>`. Cabe destacar que en el archivo `config.yml` se debe indicar con qué red se está trabajando (para el caso de las IEEE, indicar en el campo red si es 30 o 118), además de la arquitectura (FCNN o GNN).
+Este repositorio contiene varias carpetas, cada una de las cuales corresponde a una tipo de aprendizaje (supervisado o no supervisado) sobre una red en particular (IEEE o Uruguay). Además hay una carpeta donde se hace análisis sobre el grafo. Para entrenar los modelos, ejecutar el script
+
+`train.py --cfg <path-to-config.yaml>`
+
+En caso de querer realizar búsqueda de hiperparámetros inteligente, ejecutar
+
+`train_optuna.py --cfg <path-to-config.yaml>`
+
+Cabe destacar que en el archivo `config.yml` se debe indicar con qué red se está trabajando (para el caso de las IEEE, indicar en el campo red si es 30 o 118), además de la arquitectura (FCNN o GNN).
 
 
