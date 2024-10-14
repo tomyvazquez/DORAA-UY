@@ -1,6 +1,6 @@
 
 [![Docs](https://img.shields.io/badge/doc-pdf-red)](https://drive.google.com/drive/folders/121s67_IgW-r39hG-xwHIUI32-_QIE97X?usp=sharing)
-[![Dataset](https://img.shields.io/badge/dataset-download-brightgreen)](https://drive.google.com/drive/folders/121s67_IgW-r39hG-xwHIUI32-_QIE97X?usp=sharing)
+[![Dataset](https://img.shields.io/badge/dataset-download-brightgreen)](Documentacion.pdf)
 
 # DORAA-UY (Despacho Óptimo de Reactiva mediante Aprendizaje Automático)
 
@@ -10,7 +10,7 @@ El proyecto busca optimizar el uso de los recursos de la red, mejorando tanto su
 
 Este repositorio incluye el código necesario para entrenar modelos de aprendizaje automático que optimizan el ORPD para cada una de las redes. La base de datos y el modelo de la red uruguaya se encuentran disponibles para su descarga [aquí](https://drive.google.com/drive/folders/121s67_IgW-r39hG-xwHIUI32-_QIE97X?usp=sharing).
 
-A continuación, se brindan instrucciones detalladas sobre cómo entrenar los modelos y una descripción más extensa del proyecto. Todos los conceptos presentados en este repositorio son fuertemente abordados en la [documentación de esta tesis](Tesis_DORAA.pdf), por lo que las descripciones de las siguientes secciones son un acercameiento al problema. Por esto mismo, se recomienda fuertemente que los conceptos que se quieran abordar con profundidad sean consultados en la documentación, y si tienes alguna consulta en particular, puedes abrir un issue en este repositorio.
+A continuación, se brindan instrucciones detalladas sobre cómo entrenar los modelos y una descripción más extensa del proyecto. Todos los conceptos presentados en este repositorio son fuertemente abordados en la [documentación de esta tesis](Documentacion.pdf), por lo que las descripciones de las siguientes secciones son un acercameiento al problema. Por esto mismo, se recomienda fuertemente que los conceptos que se quieran abordar con profundidad sean consultados en la documentación, y si tienes alguna consulta en particular, puedes abrir un issue en este repositorio.
 
 ### Despacho Óptimo de Potencia Reactiva en la Red Eléctrica Uruguaya utilizando Aprendizaje Automático
 
