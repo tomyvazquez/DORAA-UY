@@ -1,6 +1,6 @@
 
-[![Docs](https://img.shields.io/badge/doc-pdf-red)](https://drive.google.com/drive/folders/121s67_IgW-r39hG-xwHIUI32-_QIE97X?usp=sharing)
-[![Dataset](https://img.shields.io/badge/dataset-download-brightgreen)](Documentacion.pdf)
+[![Docs](https://img.shields.io/badge/doc-pdf-red)](Documentacion.pdf)
+[![Dataset](https://img.shields.io/badge/dataset-download-brightgreen)](https://drive.google.com/drive/folders/121s67_IgW-r39hG-xwHIUI32-_QIE97X?usp=sharing)
 
 # DORAA-UY (Despacho Óptimo de Reactiva mediante Aprendizaje Automático)
 
