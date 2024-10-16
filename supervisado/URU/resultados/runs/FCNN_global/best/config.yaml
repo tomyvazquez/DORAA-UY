@@ -1,0 +1,34 @@
+outdir: ../resultados/runs_ploss_finallll
+model:
+  batch_norm: false
+  model: FCNN_global
+  layers:
+  - 4
+  - 512
+  - 512
+  - 512
+  - 512
+  - 2
+  K: []
+  dropout: 0.16738334182583492
+data:
+  data_path: ../data/reduru
+  red: uru
+  red_path: ../data/red_uru.p
+  normalize_X: true
+  normalize_Y: true
+  target: null
+training:
+  device: cuda
+  batch_size: 64
+  lr: 1.0228158525560256e-05
+  lr_gamma: 0.999
+  num_epochs: 1500
+  early_stopping: 30
+  betas:
+  - 0.9
+  - 0.999
+  weight_decay: 3.5419218700184033e-06
+  seed: 42
+  initial_metric_epoch: 501
+  metric_frec: 501

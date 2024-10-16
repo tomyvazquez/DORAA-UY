@@ -1,0 +1,1 @@
+{"model_name": "../resultados/runs_ploss_sintetica/GNN_local/all/10-01_20:04:06", "train_loss": 0.0026326922609681085, "val_loss": 0.005737336818128824, "val_metric_V": 0.0006980645166728281, "val_metric_sh": 0.01256478081146876, "total_metric": 0.2677777654253969, "val_MAE": 0.1013534533626893}

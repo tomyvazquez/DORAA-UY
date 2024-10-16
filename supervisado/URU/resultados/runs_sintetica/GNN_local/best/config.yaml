@@ -1,0 +1,39 @@
+outdir: ../resultados/runs_ploss_sintetica
+model:
+  batch_norm: true
+  model: GNN_local
+  layers:
+  - 4
+  - 64
+  - 64
+  - 64
+  - 64
+  - 2
+  K:
+  - 8
+  - 8
+  - 8
+  - 8
+  - 8
+  dropout: 0.021121676088777797
+data:
+  data_path: ../data/reduru_sintetica
+  red: uru
+  red_path: ../data/red_uru.p
+  normalize_X: true
+  normalize_Y: true
+  target: null
+training:
+  device: cuda
+  batch_size: 32
+  lr: 0.00047235817314030454
+  lr_gamma: 0.999
+  num_epochs: 400
+  early_stopping: 30
+  betas:
+  - 0.9
+  - 0.999
+  weight_decay: 1.7986586678805438e-05
+  seed: 42
+  initial_metric_epoch: 501
+  metric_frec: 501

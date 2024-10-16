@@ -1,0 +1,1 @@
+{"model_name": "../resultados/runs_ploss_sintetica/FCNN_global/all/10-01_18:04:03", "train_loss": 0.0018375969690552683, "val_loss": 0.007604594987172347, "val_metric_V": 0.0006118146769809895, "val_metric_sh": 0.0118280673542848, "total_metric": 0.23214972807237735, "val_MAE": 0.0901901819385015}
