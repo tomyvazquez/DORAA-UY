@@ -1,0 +1,1 @@
+{"model_name": "../resultados/runs_ploss_norm/118/FCNN_global/09-21_05:12:58", "val_loss": 0.20718934346476328, "val_metric": 0.5345443228016729, "val_p_loss": 468.4087709357976, "val_feas_metric": 1.0, "val_metric_real": 0.039002861017766205, "val_metric_reall": 0.0019987201287775583, "val_MAE": 0.001450855239375454}

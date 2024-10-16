@@ -1,0 +1,1 @@
+{"model_name": "../resultados/runs_ploss_norm/118/GNN_local/09-29_16:27:09", "val_loss": 0.2728165765495404, "val_metric": 0.0028583229944595823, "val_p_loss": 470.817494269212, "val_feas_metric": 1.0, "train_loss": 0.050729380694754196, "train_metric": 0.44028346556605713, "val_MAE": 0.002067288019410942}

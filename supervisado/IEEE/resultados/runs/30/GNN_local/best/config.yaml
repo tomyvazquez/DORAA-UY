@@ -1,0 +1,35 @@
+outdir: ../resultados/runs_ploss_norm
+model:
+  batch_norm: true
+  model: GNN_local
+  layers:
+  - 3
+  - 512
+  - 512
+  - 512
+  - 1
+  K:
+  - 5
+  - 5
+  - 5
+  - 5
+  dropout: 0.00038538200801540787
+data:
+  data_path: ../data/red30
+  red: '30'
+  normalize_X: true
+  normalize_Y: true
+training:
+  device: cuda
+  batch_size: 32
+  lr: 0.0006521594213294344
+  num_epochs: 1500
+  early_stopping: 30
+  betas:
+  - 0.9
+  - 0.999
+  weight_decay: 3.2269644962357554e-05
+  seed: 42
+  metric_frec: 30
+  initial_metric_epoch: 0
+  dropout: 0

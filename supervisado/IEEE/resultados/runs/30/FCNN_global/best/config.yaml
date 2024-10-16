@@ -1,0 +1,29 @@
+outdir: ../resultados/runs_ploss_norm
+model:
+  batch_norm: false
+  model: FCNN_global
+  layers:
+  - 3
+  - 32
+  - 32
+  - 1
+  K: []
+  dropout: 0
+data:
+  data_path: ../data/red30
+  red: '30'
+  normalize_X: true
+  normalize_Y: true
+training:
+  device: cuda
+  batch_size: 32
+  lr: 0.0003534958675529326
+  num_epochs: 1500
+  early_stopping: 30
+  betas:
+  - 0.9
+  - 0.999
+  weight_decay: 0
+  seed: 42
+  metric_frec: 30
+  initial_metric_epoch: 0
