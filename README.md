@@ -1,6 +1,11 @@
 
 [![Docs](https://img.shields.io/badge/doc-pdf-red)](Documentacion.pdf)
 [![Dataset](https://img.shields.io/badge/dataset-download-brightgreen)](https://drive.google.com/drive/folders/121s67_IgW-r39hG-xwHIUI32-_QIE97X?usp=sharing)
+[![Google Scholar](https://img.shields.io/badge/Google_Scholar-Ignacio%20Boero-blue?style=flat&logo=google-scholar)](https://scholar.google.com/citations?user=abc123)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Santiago%20Díaz-blue?style=flat&logo=linkedin)](https://www.linkedin.com/in/sdiazvaz/)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Tomás%20Vázquez-blue?style=flat&logo=linkedin)](https://www.linkedin.com/in/tom%C3%A1s-v%C3%A1zquez-292623186/)
+[![Facultad de Ingeniería](https://img.shields.io/badge/Facultad%20de%20Ingeniería-UdelaR-blue)](https://www.fing.edu.uy)
+
 
 # DORAA-UY (Despacho Óptimo de Reactiva mediante Aprendizaje Automático)
 
@@ -10,7 +15,7 @@ El proyecto busca optimizar el uso de los recursos de la red, mejorando tanto su
 
 Este repositorio incluye el código necesario para entrenar modelos de aprendizaje automático que optimizan el ORPD para cada una de las redes. La base de datos y el modelo de la red uruguaya se encuentran disponibles para su descarga [aquí](https://drive.google.com/drive/folders/121s67_IgW-r39hG-xwHIUI32-_QIE97X?usp=sharing).
 
-A continuación, se brindan instrucciones detalladas sobre cómo entrenar los modelos y una descripción más extensa del proyecto. Todos los conceptos presentados en este repositorio son fuertemente abordados en la [documentación de esta tesis](Documentacion.pdf), por lo que las descripciones de las siguientes secciones son un acercameiento al problema. Por esto mismo, se recomienda fuertemente que los conceptos que se quieran abordar con profundidad sean consultados en la documentación, y si tienes alguna consulta en particular, puedes abrir un issue en este repositorio.
+A continuación, se brindan instrucciones detalladas sobre cómo entrenar los modelos y una descripción más extensa del proyecto. Todos los conceptos presentados en este repositorio son fuertemente abordados en la [documentación de esta tesis](Documentacion.pdf), por lo que las descripciones de las siguientes secciones son un acercamiento al problema. Por esto mismo, se recomienda fuertemente que los conceptos que se quieran abordar con profundidad sean consultados en la documentación, y si tienes alguna consulta en particular, puedes abrir un issue en este repositorio.
 
 ### Despacho Óptimo de Potencia Reactiva en la Red Eléctrica Uruguaya utilizando Aprendizaje Automático
 
@@ -80,19 +85,41 @@ Para entrenar los modelos, cada uno tiene su respectivo archivo `config.yaml` en
 
 ### Resultados
 
-### Creaación del environment
+### Creación del environment
 - Instalación de Julia con herramienta PyCall. Seguir las instrucciones en este [link])(https://pandapower.readthedocs.io/en/v2.6.0/opf/powermodels.html)
 - Crear un entorno para python e instalar todas las dependencias mediante el siguiente comando:
+
 ` pip install requirements.txt`
 
 ### Reproducción de resultados
-Este repositorio contiene varias carpetas, cada una de las cuales corresponde a una tipo de aprendizaje (supervisado o no supervisado) sobre una red en particular (IEEE o Uruguay). Además hay una carpeta donde se hace análisis sobre el grafo. Para entrenar los modelos, ejecutar el script
+Este repositorio contiene varias carpetas, cada una de las cuales corresponde a una tipo de aprendizaje (supervisado o no supervisado) sobre una red en particular (IEEE o Uruguay). Además hay una carpeta donde se hace análisis sobre el grafo. Para entrenar los modelos, ejecutar el script:
 
 `train.py --cfg <path-to-config.yaml>`
 
 Este script corre un conjunto de entrenamientos, realizando la búsqueda inteligente de hiperparámetros mencionada anteriormente. Por lo tanto, configurar correctamente en el archivo de entrenamiento los rangos de hiperparámetros a explorar.
 
 Por otro lado, en el archivo `config.yml` se debe indicar resto de parámetros del entrenamiento. Entre ellos se selecciona qué red se está trabajando (para el caso de las IEEE, indicar en el campo red si es 30 o 118), además de la arquitectura (FCNN o GNN).
+
+Procurar que la estructura de datos sea correctamente ubicada al descargar los datos. La estructura debe ser como el próximo ejemplo (para el caso supervisado de la red eléctrica uruguaya), o análoga para cualquier otro caso de entrenamiento:
+
+```
+/supervisado
+│
+└───/URU
+    │
+    ├───/data
+    │   └───/reduru
+    │       ├───/train
+    │       ├───/test
+    │       └───/val
+    │
+    ├───/entrenamiento
+    │   └───(scripts relacionados al entrenamiento del modelo)
+    │
+    └───/resultados
+        └───(reportes, métricas, gráficos de resultados, etc.)
+```
+
 
 ### Generación de datos
 
