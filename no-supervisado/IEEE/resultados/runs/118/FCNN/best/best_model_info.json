@@ -1,0 +1,1 @@
+{"model_name": "../resultados/runs_ploss_final/118/FCNN/09-29_12:35:52", "val_loss": 91.70273946126302, "feasibility_metric": 0.3347222222222222, "voltaje_setpoint_metric": 83.60356067968769, "no_conv_count": 0, "gaps_mean_val": 0.2668475110846986, "gaps_max_val": 1.09518353721394}

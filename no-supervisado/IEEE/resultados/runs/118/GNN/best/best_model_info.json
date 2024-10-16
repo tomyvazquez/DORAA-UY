@@ -1,0 +1,1 @@
+{"model_name": "../resultados/runs_ploss_final/118/GNN/09-28_15:32:48", "val_loss": 43.85499852498372, "feasibility_metric": 0.0, "voltaje_setpoint_metric": 84.44020028571595, "no_conv_count": 0, "gaps_mean_val": 0, "gaps_max_val": 0}

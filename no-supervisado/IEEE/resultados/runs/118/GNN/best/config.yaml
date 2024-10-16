@@ -1,0 +1,40 @@
+outdir: ../resultados/runs_ploss_final
+model:
+  model: GNN
+  layers:
+  - 3
+  - 128
+  - 128
+  - 128
+  - 4
+  K:
+  - 1
+  - 1
+  - 1
+  - 1
+  dropout: 0.010876351654157568
+data:
+  data_path: ../data
+  red: '118'
+  red_path: None
+  normalize_X: false
+training:
+  device: cuda
+  batch_size: 32
+  lr: 0.0009281922639809341
+  num_epochs: 1500
+  early_stopping: 30
+  betas:
+  - 0.9
+  - 0.999
+  weight_decay: 5.270589566713022e-05
+  seed: 42
+  initial_metric_epoch: 0
+  batch_norm: true
+  use_edge_weights: true
+  dual_coefs:
+  - 2.368290862070992
+  - 3.6876803838458345
+  - 2.5928381438917872e-05
+  node_weights: []
+  alpha_node_weights: 0

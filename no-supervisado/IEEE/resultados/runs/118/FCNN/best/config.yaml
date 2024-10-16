@@ -1,0 +1,40 @@
+outdir: ../resultados/runs_ploss_final
+model:
+  model: FCNN
+  layers:
+  - 3
+  - 32
+  - 32
+  - 32
+  - 4
+  K:
+  - 5
+  - 5
+  - 5
+  - 5
+  dropout: 0.18551498273065015
+data:
+  data_path: ../data
+  red: '118'
+  red_path: None
+  normalize_X: false
+training:
+  device: cuda
+  batch_size: 32
+  lr: 0.001618376113859178
+  num_epochs: 1500
+  early_stopping: 30
+  betas:
+  - 0.9
+  - 0.999
+  weight_decay: 7.124959032336821e-05
+  seed: 42
+  initial_metric_epoch: 0
+  batch_norm: true
+  use_edge_weights: true
+  dual_coefs:
+  - 17.300465510239246
+  - 1.0489293474173116
+  - 0.00043791320962344047
+  node_weights: []
+  alpha_node_weights: 0
