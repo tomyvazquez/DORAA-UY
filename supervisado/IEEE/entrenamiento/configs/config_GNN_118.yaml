@@ -9,8 +9,8 @@ model:
 data:
   data_path: ../data/red30
   red: '118'
-  normalize_X: None # Optuna
-  normalize_Y: None # Optuna
+  normalize_X: True # Optuna
+  normalize_Y: True # Optuna
 
 training:
   device: 'cuda'

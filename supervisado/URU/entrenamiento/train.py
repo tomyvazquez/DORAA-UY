@@ -22,13 +22,18 @@ def objective(trial):
     
     cfg = OmegaConf.load(args.cfg)
     
-    # Definir GRID SEARCH
+    # BUSQUEDA DE HIPERPARAMETROS
     
+    ## Entrenamiento
     lr = trial.suggest_loguniform('lr', 1e-5, 1e-3)
     batch_size = trial.suggest_categorical('batch_size', [32,64,128])
-    batch_norm = trial.suggest_categorical('batch_norm', [True, False])
+    
+    # Regularizacion
     weight_dec = trial.suggest_loguniform('weight_decay', 0.000001, 0.01)
     drop = trial.suggest_uniform('dropout', 0, 0.5)
+    
+    # Modelo
+    batch_norm = trial.suggest_categorical('batch_norm', [True, False])
     if cfg.model.model=='GNN_local':
         k = trial.suggest_int('k', 2, 8)
         layers =  trial.suggest_categorical('layers', [[4,16,16,2],[4,32,32,2], [4,64,64,2], [4,16,16,16,2],[4,32,32,32,2],[4,64,64,64,2], [4,16,16,16,16,2],[4,32,32,32,32,2],[4,64,64,64,64,2] ])
@@ -36,13 +41,13 @@ def objective(trial):
     else:
         layers =  trial.suggest_categorical('layers', [[4,32,32,2], [4,128,128,2], [4,512,512, 2], [4,1024,1024,2], [4,32,32,32,2], [4,128,128,128,2], [4,512,512,512,2], [4,1024,1024,1024,2], [4,32,32,32,32,2], [4,128,128,128,128,2],[4,512,512,512,512,2], [4,1024,1024,1024,1024,2]])
 
-    # Cargar CFG
+    # Cargar cfg
     
     outdir = Path(cfg.outdir) / cfg.model.model /  datetime.now().isoformat().split('.')[0][5:].replace('T', '_')
     weights_dir = outdir / 'weights'
     weights_dir.mkdir(parents=True, exist_ok=True)
 
-    # Guardar CFG
+    # Guardar cfg
     cfg.model.layers = layers
     cfg.training.weight_decay = weight_dec
     cfg.model.dropout = drop

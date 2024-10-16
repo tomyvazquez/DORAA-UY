@@ -1,0 +1,26 @@
+outdir: ../resultados/runs_sintetica
+
+model:
+  model: GNN_local
+  batch_norm: -1 # OPTUNA
+  layers: [] # OPTUNA
+  K: [] # OPTUNA
+  dropout: -1 # OPTUNA
+
+data:
+  data_path: ../data/reduru_sintetica # reduru_sintetica
+  red: 'uru'
+  red_path: '../data/red_uru.p'
+  normalize_X: True # OPTUNA
+  normalize_Y: True # OPTUNA
+
+training:
+  device: 'cuda'
+  lr_gamma: 0.999
+  num_epochs: 1500
+  early_stopping: 30
+  betas: [0.9, 0.999]
+  seed: 42
+  batch_size: -1 # OPTUNA
+  lr: -1 # OPTUNA
+  weight_decay: -1 # OPTUNA
