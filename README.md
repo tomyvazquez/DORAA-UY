@@ -17,8 +17,6 @@ Este repositorio incluye el código necesario para entrenar modelos de aprendiza
 
 A continuación, se brindan instrucciones detalladas sobre cómo entrenar los modelos y una descripción más extensa del proyecto. Todos los conceptos presentados en este repositorio son fuertemente abordados en la [documentación de esta tesis](Documentacion.pdf), por lo que las descripciones de las siguientes secciones son un acercamiento al problema. Por esto mismo, se recomienda fuertemente que los conceptos que se quieran abordar con profundidad sean consultados en la documentación, y si tienes alguna consulta en particular, puedes abrir un issue en este repositorio.
 
----
-
 ### Despacho Óptimo de Potencia Reactiva en la Red Eléctrica Uruguaya utilizando Aprendizaje Automático
 
 Este proyecto se centra en la aplicación de estrategias de aprendizaje automático para resolver el Despacho Óptimo de Potencia Reactiva (ORPD) en la red eléctrica uruguaya, con el objetivo de minimizar pérdidas y asegurar la estabilidad del sistema. Para ello, se utilizan redes neuronales, tanto completamente conectadas (FCNN) como redes neuronales sobre grafos (GNN), aprovechando la capacidad de estas últimas para modelar la estructura de la red eléctrica como un grafo.
@@ -85,15 +83,30 @@ Como función de pérdida para los entrenamientos de aprendizaje supervisado se 
 
 Para entrenar los modelos, cada uno tiene su respectivo archivo `config.yaml` en donde se puede ajustar el set de hiperparámetros. Una estrategia utilizada en este trabajo es el uso de la herramienta [optuna](https://optuna.org) para realizar una búsqueda inteligente de hiperparámetros. Entre ellos se exploran distintos tamaños para las arquitecturas, tamaños de batch, tasa de aprendizaje, uso de batch normalization, normalización de datos de entrada y salida, entre otros.
 
-### Resultados
+---
 
-### Creación del environment
+# Uso del código
+
+## Preparación del entorno de python
 - Instalación de Julia con herramienta PyCall. Seguir las instrucciones en este [link])(https://pandapower.readthedocs.io/en/v2.6.0/opf/powermodels.html)
 - Crear un entorno para python e instalar todas las dependencias mediante el siguiente comando:
 
 ` pip install requirements.txt`
 
-### Reproducción de resultados
+## Generación de datos
+Como fue mencionado anteriormente, este repositorio contiene scripts de generación de datos, tanto para redes IEEE como para la red uruguaya.
+
+- IEEE
+  Para la generación de datos de las redes IEEE, correr el script `generar_datos.py` situado dentro de la carpeta `supervisado/IEEE/data/`.
+
+  ```
+  python generar_datos.py --red 30 --N 1000
+  ```
+
+- Red de Uruguay
+
+
+### Entrenamiento
 Este repositorio contiene varias carpetas, cada una de las cuales corresponde a una tipo de aprendizaje (supervisado o no supervisado) sobre una red en particular (IEEE o Uruguay). Además hay una carpeta donde se hace análisis sobre el grafo. Para entrenar los modelos, ejecutar el script:
 
 `train.py --cfg <path-to-config.yaml>`
@@ -104,6 +117,8 @@ Por otro lado, en el archivo `config.yml` se debe indicar resto de parámetros d
 
 Procurar que la estructura de datos sea correctamente ubicada al descargar los datos. La estructura debe ser como el próximo ejemplo (para el caso supervisado de la red eléctrica uruguaya), o análoga para cualquier otro caso de entrenamiento:
 
+es importante q los datos esten y el config y elegir hiperparametros optuna
+correr python train.py
 ```
 /supervisado
 │
@@ -120,10 +135,13 @@ Procurar que la estructura de datos sea correctamente ubicada al descargar los d
     │
     └───/resultados
         └───(reportes, métricas, gráficos de resultados, etc.)
+
 ```
 
 
-### Generación de datos
+## Análisis de resultados
+se necesita la data y en el runs este el best y que se llam e siosi best y correr. decir que analiza cada seccion de analisis de resultados
+
 
 
 
