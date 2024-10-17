@@ -139,7 +139,14 @@ Por otro lado, además de los datos, se debe tener un archivo de configuración,
 
 ```train.py --cfg <path-to-config.yaml>```
 
+Se recomienda fuertemente la disponibilidad de GPU para entrenamiento.
+
 ## Análisis de resultados
+Por último, dentro de cada carpeta se pueden encontrar notebooks para el análisis de resultados. Cabe resaltar que para la ejecución de este notebook, se debe disponer previamente de modelos entrenados dentro de la carpeta `runs/`. Por otro lado, dentro de esta carpeta se divide según cada red eléctrica, y luego según cada modelo (GNN o FCNN). De esta manera, al ejecutar el código de análisis (`analisis_resultados.ipynb`), se debe seleccionar en las primeras dos líneas de la segunda celda qué modelo se quiere evaluar. Un detalle importante es que este notebook levanta el modelo situado en la carpeta `best`, que corresponde al mejor modelo obtenido. Es por esto que se debe tener previamente renombrado el mejor modelo como `best`. Al clonar este repositorio se pueden ver los mejores modelos que se obtuvieron durante esta tesis.
+
+
+
+
 se necesita la data y en el runs este el best y que se llam e siosi best y correr. decir que analiza cada seccion de analisis de resultados
 
 
