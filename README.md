@@ -17,7 +17,7 @@ Este repositorio incluye el código necesario para entrenar modelos de aprendiza
 
 A continuación, se brinda una descripción detallada del proyecto. Todos los conceptos presentados en este repositorio son fuertemente abordados en la [documentación de esta tesis](Documentacion.pdf), por lo que las descripciones de las siguientes secciones son un acercamiento al problema. Por esto mismo, se recomienda fuertemente que los conceptos que se quieran abordar con profundidad sean consultados en la documentación, y si tienes alguna consulta en particular, puedes abrir un issue en este repositorio o contactarnos. Por otro lado, se realiza una explicación detallada para la ejecución de los scripts [más abajo](#uso-del-código). 
 
-### Despacho Óptimo de Potencia Reactiva en la Red Eléctrica Uruguaya utilizando Aprendizaje Automático
+## Despacho Óptimo de Potencia Reactiva en la Red Eléctrica Uruguaya utilizando Aprendizaje Automático
 
 Este proyecto se centra en la aplicación de estrategias de aprendizaje automático para resolver el Despacho Óptimo de Potencia Reactiva (ORPD) en la red eléctrica uruguaya, con el objetivo de minimizar pérdidas y asegurar la estabilidad del sistema. Para ello, se utilizan redes neuronales, tanto completamente conectadas (FCNN) como redes neuronales sobre grafos (GNN), aprovechando la capacidad de estas últimas para modelar la estructura de la red eléctrica como un grafo.
 
@@ -25,17 +25,17 @@ Se ataca el problema mediante aprendizaje supervisado y no supervisado. Para el 
 
 Además, el proyecto incluye estudios sobre redes de prueba IEEE30 e IEEE118 para comparar las estrategias con casos más generales y analizar la representatividad de los datos sintéticos respecto a los datos reales de la red uruguaya. Uno de los principales aportes de este trabajo es la creación de una base de datos histórica real de la red eléctrica uruguaya, la cual será puesta a disposición pública para fomentar más investigaciones en este ámbito.
 
-### Planteo del problema de Optimización
+## Planteo del problema de Optimización
 
 El problema de Despacho Óptimo de Potencia Reactiva (ORPD) se plantea como un problema de optimización sujeto a restricciones. Existen varias formulaciones posibles para este problema, pero el objetivo principal es minimizar las pérdidas eléctricas en la red, sin exceder los límites de seguridad y operatividad de la misma. Las restricciones del problema representan las limitaciones físicas que los componentes de la red imponen sobre los valores que pueden tomar las variables. La primera restricción es la ecuación de flujo de potencia, que establece la relación entre los voltajes y las potencias inyectadas en toda la red; por lo tanto, cualquier solución propuesta debe cumplirla. Además, existen restricciones a nivel de barras, donde se limita tanto la magnitud como los ángulos del voltaje. Por otro lado, se establece un límite físico para la corriente que una línea o transformador puede soportar de manera sostenida, el cual debe cumplirse para la corriente que circula en ambos sentidos. En cuanto a las potencias, hay restricciones en la capacidad de generar potencia reactiva tanto para los generadores controladores de voltaje como para los compensadores de reactiva. Finalmente, se imponen restricciones sobre la potencia activa y reactiva del generador de referencia.
 
 
-### Redes IEEE
+## Redes IEEE
 Las redes de potencia IEEE son un conjunto de redes de transmisión presentadas como casos de estudio públicamente disponibles por la Universidad de Illinois a principios de los años 90's. Estas consisten en 7 redes que varían en tamaño desde 14 hasta 300 barras. Estas redes proporcionan un entorno controlado y bien documentado para probar y evaluar tanto algoritmos como técnicas de optimización antes de su implementación en la red uruguaya. A su vez, permiten explorar diferentes arquitecturas y estrategias, facilitando la identificación de mejores prácticas y posibles desafíos que podrían surgir en la aplicación a la red uruguaya. Debido a la popularidad de estas redes, la librería PandaPower ya presenta una implementación hecha para ellas, lo que facilita aún más su uso en simulaciones y análisis de redes eléctricas.
 
 En este trabajo se utilizan dos de estas redes; la IEEE30 e IEEE118, que cuentan con 30 y 118 barras respectivamente. La razón de utilizar la IEEE30 es contar con una red de tamaño chico, la cual dado su pequeño tamaño, hace que sea posible interpretar los resultados más intuitivamente, lo que es muy útil a la hora de detectar posibles causas de errores ante imprevistos. Por otro lado, la red IEEE118 es elegida ya que la cantidad de barras es similar a la red uruguaya, la cual tiene 107 barras. De esta forma se asegura que una estrategia operativa para la red 30 mantiene su validez para una red de tamaño similar a la uruguaya.
 
-### Red Eléctrica Uruguaya
+## Red Eléctrica Uruguaya
 
 El modelo de la red está armado en PandaPower, cuyo archivo se encuentra en el repositorio y se puede cargar mediante:
 
@@ -43,33 +43,28 @@ El modelo de la red está armado en PandaPower, cuyo archivo se encuentra en el 
 
 Este modelo corresponde a una simplificación de la red eléctrica uruguaya, el cual posee un total de 107 barras, de las cuales 95 son en 150 kV y 12 en 500 kV. A su vez se tienen 144 líneas, de las cuales 14 conectan barras de 500 kV y 130 conectan barras de 150 kV. Todos las barras de 500 tienen asociados un transformador, que las conecta a una barra del mismo nombre pero a 150kV, por lo que hay también 12 transformadores. Cuenta además con 43 generadores, de los cuales 15 son controladores de voltaje, 27 son estáticos y hay 1 generador de referencia. Finalmente, se tienen 55 cargas y 6 compensadores de reactiva.
 
-### Definición de entradas y salidas
+## Definición de entradas y salidas
 El objetivo principal es, dado un estado de la red, esto es, conocer la potencia activa y reactiva de las cargas y la potencia activa de los generadores, hallar el voltaje de consigna a setear en los generadores de la red y los valores de reactiva a despachar en los compensadores. Al configurar el voltaje de los generadores, y teniendo la potencia activa que estos generan como dato, los generadores van a generar la reactiva necesaria para mantener ese nivel de voltaje en la barra a la que se conecta, por esto mismo el control de voltaje tiene una incidencia directa sobre la reactiva en la red.
 
-### Alternativas para la resolución del problema
+## Alternativas para la resolución del problema
 
 En este trabajo, se abordan dos metodologías diferentes para la resolución de este problema. En primer lugar, se propone explorar algoritmos de aprendizaje supervisado. Para esto, se utiliza una base de datos con distintos estados de la red junto con sus respectivas variables de control óptimas, halladas previamente mediante el solver de PandaPower. De esta manera, se entrenan modelos FCNN y GNN para aprender este mapeo de entradas y salidas. La limitación que tendrán estos modelos, es que aprenderan a encontrar los mismos óptimos que un optimizador tradicional, por lo cual se esperan resultados con igual o peor desempeño que este en términos de pérdidas en la red. De todas maneras, el entrenar un modelo tiene la ventaja de que los recursos de cómputo se utilizan offline, reduciendo considerablemente tiempos de inferencia. En este caso se utiliza como función de pérdida se utiliza el error cuadrático medio.
 
 Por otro lado y a modo de exploración de distintos resultados, se implementa un modelo de aprendizaje no supervisado, donde la función de pérdida es una variante del lagrangiano del problema de optimización. En este caso, el modelo no intenta copiar salidas de un optimizador, sino que iterativamente va aprendiendo a minimizar las pérdidas en la red, cumpliendo con las restricciones del problema.
 
-### Datos
-#### IEEE 
+## Datos
+- IEEE 
+
 En cuanto a las redes IEEE, ninguna de las dos ofrece un histórico de generación o demanda de potencia para entrenar los modelos. Esto implica que para trabajar con estas es necesario generar una base de datos sintética. Los datos que son necesarios simular son aquellos que se toman como entrada al problema. Se deben generar valores de potencia activa y reactiva demandada, y valores de potencia activa generada (se omiten los generadores estáticos ya que esta red no presenta generadores estáticos).
 
 Como metodología utilizada para la generación de datos sintéticos se realiza un proceso  similar a los utilizados en otros trabajos que abordan este problema con aprendizaje automático. Esta consiste en, para cada nodo, tomar valores nominales de potencia activa y reactiva de todos los nodos. Estos valores nominales son información prevista por la red. Luego, a partir de estos valores, se genera una distribución de generación/demanda, que consiste en una uniforme entre un 0.7 y 1.3 del valor de referencia. A partir de estos valores se halla el óptimo mediante la función `net.acopf()` (no me acuerdo como se llama), y se registran los valores óptimos de voltaje para los generadores. Estos valores serán las etiquetas para luego entrenar los modelos de aprendizaje supervisado.
 
-Generación de datos:
-En este repositorio se encuentra el código necesario para la generación de los datos. Para ello, ejecutar el script de la carpeta `data_generation`:
 
-`python generar_data.py`
+- Red Eléctrica Uruguaya
 
-#### Red Eléctrica Uruguaya
 Para la red eléctrica uruguaya se dispone con datos históricos de la red desde enero de 2021, con registros de cada 1 hora. Estos fueron brindados por el DNC, y corresponden a valores de potencia activa generada por los generadores y valores de potencia activa demandada. Con respecto a la reactiva, no se cuenta con estos datos (ni de generación ni demanda), por lo cual son generados sintéticamente. Para esto, se muestrean valores de reactiva tomando la potencia activa de las cargas multiplicadas por el coseno de un ángulo que toma valor 0.995 para datos correspondientes a la madrugada (entre las 00 y las 06) y 0.980 para el resto del día. Para los generadores estáticos, se fijan los valores de potencia reactiva en 0, ya que se considera que estos solo generan activa.
 
-Generación de datos:
-Para la generación de datos sintéticos para la red eléctrica uruguaya se procede de igual manera que para las redes IEEE.
-
-### Algunos detalles de implementación
+## Algunos detalles de implementación
 
 Las dos arquitecturas a probar en este trabajo son las redes neuronales completamente conectadas y las redes neuronales para datos en grafos. Estas consisten de una secuencia de capas lineales o convolucionales, intercaladas con funciones de activación. Como función de activación se utiliza Leaky ReLU. 
 
@@ -79,9 +74,9 @@ Otro detalle interesante de implementación es el uso de una máscara a la salid
 
 Como función de pérdida para los entrenamientos de aprendizaje supervisado se utiliza MSE, dado que el objetivo de los modelos es copiar los valores objetivo. Por otro lado, como fue mencionado previamente, para los entrenamientos de los modelos de aprendizaje no supervisado se utiliza una modificación del lagrangiano del problema de optimización.
 
-### Hiperparámetros
+## Búsqueda de hiperparámetros
 
-Para entrenar los modelos, cada uno tiene su respectivo archivo `config.yaml` en donde se puede ajustar el set de hiperparámetros. Una estrategia utilizada en este trabajo es el uso de la herramienta [optuna](https://optuna.org) para realizar una búsqueda inteligente de hiperparámetros. Entre ellos se exploran distintos tamaños para las arquitecturas, tamaños de batch, tasa de aprendizaje, uso de batch normalization, normalización de datos de entrada y salida, entre otros.
+Una estrategia utilizada en este trabajo es el uso de la herramienta [optuna](https://optuna.org) para realizar una búsqueda inteligente de hiperparámetros. Entre ellos se exploran distintos tamaños para las arquitecturas, tamaños de batch, tasa de aprendizaje, uso de batch normalization, normalización de datos de entrada y salida, entre otros.
 
 ---
 
