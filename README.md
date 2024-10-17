@@ -144,10 +144,7 @@ Se recomienda fuertemente la disponibilidad de GPU para entrenamiento.
 ## Análisis de resultados
 Por último, dentro de cada carpeta se pueden encontrar notebooks para el análisis de resultados. Cabe resaltar que para la ejecución de este notebook, se debe disponer previamente de modelos entrenados dentro de la carpeta `runs/`. Por otro lado, dentro de esta carpeta se divide según cada red eléctrica, y luego según cada modelo (GNN o FCNN). De esta manera, al ejecutar el código de análisis (`analisis_resultados.ipynb`), se debe seleccionar en las primeras dos líneas de la segunda celda qué modelo se quiere evaluar. Un detalle importante es que este notebook levanta el modelo situado en la carpeta `best`, que corresponde al mejor modelo obtenido. Es por esto que se debe tener previamente renombrado el mejor modelo como `best`. Al clonar este repositorio se pueden ver los mejores modelos que se obtuvieron durante esta tesis.
 
-
-
-
-se necesita la data y en el runs este el best y que se llam e siosi best y correr. decir que analiza cada seccion de analisis de resultados
+Este notebook abarca distintos tipos de análisis para el mejor modelo, con los datos de test. En primer lugar se muestra tanto el valor de la métrica obtenida para este modelo, así como gráficas de los voltajes predichos para los generadores comparados con los valores objetivo, ordenados de menor a mayor (esto únicamente para el caso de aprendizaje supervisado, que es donde se quiere seguir el comportamiento del optimizador). Luego se realiza un análisis de cuán bueno fue el modelo como solución del ORPD. Para esto, se realizan histogramas de comparación de los costos muestra a muestra entre el modelo y el optimizador, o contra modelos básicos, calculando el cociente entre los costos. Por último, se hace un análisis de cuán factibles son las soluciones según el porcentaje por el cual las restricciones de la red son violadas, así como un análisis de tiempos de inferencia comparado con el optimizador.
 
 
 
