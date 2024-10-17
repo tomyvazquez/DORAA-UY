@@ -98,7 +98,7 @@ Como fue mencionado anteriormente, este repositorio contiene scripts de generaci
 
 - IEEE
 
-  Para la generación de datos de las redes IEEE, correr el script `generar_datos.py` situado dentro de la carpeta `supervisado/IEEE/data/`.
+  Para la generación de datos correspondientes a las redes IEEE, correr el script `generar_datos.py` situado dentro de la carpeta `supervisado/IEEE/data/`. Como parámetro se debe seleccionar la red para la cual se quieren generar los datos, así como la cantidad de datos a generar. En el ejemplo de a continuación se ejecuta para la red IEEE30, una cantidad de 1000 datos. Notar que en este caso las redes IEEE no es necesario descargarlas previamente, ya que se encuentran dentro de la librería de PandaPower.
 
   ```
   python generar_datos.py --red 30 --N 1000
@@ -106,20 +106,16 @@ Como fue mencionado anteriormente, este repositorio contiene scripts de generaci
 
 - Red de Uruguay
 
+  Para la red eléctrica uruguaya también se pueden generar datos sintéticos, lo cual es de mucha utilidad previo a trabajar con los datos reales. Para la generación de estos datos, se debe ejecutar el script `generar_datos_sintetica.py` ubicado en la carpeta `supervisado/URU/data/`. En este caso no es necesario especificar la red. A continuación se puede observar un ejemplo donde se generan 1000 datos. En este caso, el archivo pickle con el modelo de la red `red_uru.p` debe estar dentro de la misma carpeta. Este modelo puede también ser descargado del Drive, en caso de ser necesario.
 
-### Entrenamiento
-Este repositorio contiene varias carpetas, cada una de las cuales corresponde a una tipo de aprendizaje (supervisado o no supervisado) sobre una red en particular (IEEE o Uruguay). Además hay una carpeta donde se hace análisis sobre el grafo. Para entrenar los modelos, ejecutar el script:
+  ```
+  python generar_datos_sintetica.py --N 1000
+  ```
 
-`train.py --cfg <path-to-config.yaml>`
 
-Este script corre un conjunto de entrenamientos, realizando la búsqueda inteligente de hiperparámetros mencionada anteriormente. Por lo tanto, configurar correctamente en el archivo de entrenamiento los rangos de hiperparámetros a explorar.
+## Entrenamiento de los modelos
+Para el entrenamiento de los modelos, se debe previamente tener los datos dentro de las carpetas necesarias. Estos pueden ser descargados del link a Drive citado previamete. Para evitar errores al ejecutar los scripts de entrenamiento, procurar de que los datos tengan la siguiente estructura (por ejemplo, para el caso donde se quiere entrenar los modelos supervisados con la red uruguaya):
 
-Por otro lado, en el archivo `config.yml` se debe indicar resto de parámetros del entrenamiento. Entre ellos se selecciona qué red se está trabajando (para el caso de las IEEE, indicar en el campo red si es 30 o 118), además de la arquitectura (FCNN o GNN).
-
-Procurar que la estructura de datos sea correctamente ubicada al descargar los datos. La estructura debe ser como el próximo ejemplo (para el caso supervisado de la red eléctrica uruguaya), o análoga para cualquier otro caso de entrenamiento:
-
-es importante q los datos esten y el config y elegir hiperparametros optuna
-correr python train.py
 ```
 /supervisado
 │
@@ -139,6 +135,9 @@ correr python train.py
 
 ```
 
+Por otro lado, además de los datos, se debe tener un archivo de configuración, los cuales se encuentran dentro de la carpeta `configs/` de cada tipo de entrenamiento. En este repositorio se dejan algunos ejemplos. En caso de querer entrenar una red completamente conectada, seleccionar los config con nombre FCNN, mientras que si se quiere entrenar modelos de redes sobre grafos, seleccionar los archivos con las siglas GNN. Notar también que se puede distinguir mediante los nombres de los archivos con qué red eléctrica se quiere trabajar. Una vez que se cumplen todos estos requisitos, se puede entrenar el modelo correspondiente a partir del script `train.py` situado en la carpeta correspondiente. Notar que al ejecutar este código, se corre una búsqueda de hiperparámetros mediante optuna. Para configurar está busqueda de hiperparámetros, editar directamente el script `train.py` con los parámetros que se desee explorar. Para ejecutar el set de entrenamientos, correr el siguiente código:
+
+```train.py --cfg <path-to-config.yaml>```
 
 ## Análisis de resultados
 se necesita la data y en el runs este el best y que se llam e siosi best y correr. decir que analiza cada seccion de analisis de resultados
