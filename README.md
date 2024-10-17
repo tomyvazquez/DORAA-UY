@@ -17,6 +17,8 @@ Este repositorio incluye el código necesario para entrenar modelos de aprendiza
 
 A continuación, se brindan instrucciones detalladas sobre cómo entrenar los modelos y una descripción más extensa del proyecto. Todos los conceptos presentados en este repositorio son fuertemente abordados en la [documentación de esta tesis](Documentacion.pdf), por lo que las descripciones de las siguientes secciones son un acercamiento al problema. Por esto mismo, se recomienda fuertemente que los conceptos que se quieran abordar con profundidad sean consultados en la documentación, y si tienes alguna consulta en particular, puedes abrir un issue en este repositorio.
 
+---
+
 ### Despacho Óptimo de Potencia Reactiva en la Red Eléctrica Uruguaya utilizando Aprendizaje Automático
 
 Este proyecto se centra en la aplicación de estrategias de aprendizaje automático para resolver el Despacho Óptimo de Potencia Reactiva (ORPD) en la red eléctrica uruguaya, con el objetivo de minimizar pérdidas y asegurar la estabilidad del sistema. Para ello, se utilizan redes neuronales, tanto completamente conectadas (FCNN) como redes neuronales sobre grafos (GNN), aprovechando la capacidad de estas últimas para modelar la estructura de la red eléctrica como un grafo.
