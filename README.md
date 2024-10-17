@@ -54,6 +54,7 @@ Por otro lado y a modo de exploración de distintos resultados, se implementa un
 
 ## Datos
 - IEEE
+  
   En cuanto a las redes IEEE, ninguna de las dos ofrece un histórico de generación o demanda de potencia para entrenar los modelos. Esto implica que para trabajar con estas es necesario generar una base de datos sintética. Los datos que son necesarios simular son aquellos que se toman como entrada al problema. Se deben generar valores de potencia activa y reactiva demandada, y valores de potencia activa generada (se omiten los generadores estáticos ya que esta red no presenta generadores estáticos).
 
   Como metodología utilizada para la generación de datos sintéticos se realiza un proceso  similar a los utilizados en otros trabajos que abordan este problema con aprendizaje automático. Esta consiste en, para cada nodo, tomar valores nominales de potencia activa y reactiva de todos los nodos. Estos valores nominales son información prevista por la red. Luego, a partir de estos valores, se genera una distribución de generación/demanda, que consiste en una uniforme entre un 0.7 y 1.3 del valor de referencia. A partir de estos valores se halla el óptimo mediante la función `net.acopf()` (no me acuerdo como se llama), y se registran los valores óptimos de voltaje para los generadores. Estos valores serán las etiquetas para luego entrenar los modelos de aprendizaje supervisado.
@@ -61,7 +62,7 @@ Por otro lado y a modo de exploración de distintos resultados, se implementa un
 
 - Red Eléctrica Uruguaya
 
-Para la red eléctrica uruguaya se dispone con datos históricos de la red desde enero de 2021, con registros de cada 1 hora. Estos fueron brindados por el DNC, y corresponden a valores de potencia activa generada por los generadores y valores de potencia activa demandada. Con respecto a la reactiva, no se cuenta con estos datos (ni de generación ni demanda), por lo cual son generados sintéticamente. Para esto, se muestrean valores de reactiva tomando la potencia activa de las cargas multiplicadas por el coseno de un ángulo que toma valor 0.995 para datos correspondientes a la madrugada (entre las 00 y las 06) y 0.980 para el resto del día. Para los generadores estáticos, se fijan los valores de potencia reactiva en 0, ya que se considera que estos solo generan activa.
+  Para la red eléctrica uruguaya se dispone con datos históricos de la red desde enero de 2021, con registros de cada 1 hora. Estos fueron brindados por el DNC, y corresponden a valores de potencia activa generada por los generadores y valores de potencia activa demandada. Con respecto a la reactiva, no se cuenta con estos datos (ni de generación ni demanda), por lo cual son generados sintéticamente. Para esto, se muestrean valores de reactiva tomando la potencia activa de las cargas multiplicadas por el coseno de un ángulo que toma valor 0.995 para datos correspondientes a la madrugada (entre las 00 y las 06) y 0.980 para el resto del día. Para los generadores estáticos, se fijan los valores de potencia reactiva en 0, ya que se considera que estos solo generan activa.
 
 ## Algunos detalles de implementación
 
