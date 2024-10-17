@@ -97,6 +97,7 @@ Para entrenar los modelos, cada uno tiene su respectivo archivo `config.yaml` en
 Como fue mencionado anteriormente, este repositorio contiene scripts de generación de datos, tanto para redes IEEE como para la red uruguaya.
 
 - IEEE
+
   Para la generación de datos de las redes IEEE, correr el script `generar_datos.py` situado dentro de la carpeta `supervisado/IEEE/data/`.
 
   ```
