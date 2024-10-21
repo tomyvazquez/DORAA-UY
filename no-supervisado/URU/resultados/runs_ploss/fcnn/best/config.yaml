@@ -16,9 +16,9 @@ model:
   arq: FCNN
   dropout: 0.14232731333401022
 data:
-  data_path: /home/nacho/unsup_uru/data/reduru_finalll_secuencial
+  data_path: ../data/reduru
   red: uru
-  red_path: /home/nacho/unsup_uru/data/red_uru_final.p
+  red_path: ../data/red_uru.p
   normalize_X: false
 training:
   device: cuda

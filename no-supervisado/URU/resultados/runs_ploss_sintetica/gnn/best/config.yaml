@@ -6,31 +6,31 @@ model:
   - 512
   - 5
   K:
-  - 3
-  - 3
-  - 3
+  - 4
+  - 4
+  - 4
   arq: GNN
-  dropout: 0.09647204473059222
+  dropout: 0.011268544720390909
 data:
-  data_path: /home/nacho/unsup_uru/data/reduru_sintetica
+  data_path: ../data/reduru_sintetica
   red: uru
-  red_path: /home/nacho/unsup_uru/data/red_uru_final.p
+  red_path: ../data/red_uru.p
   normalize_X: false
 training:
   device: cuda
   batch_size: 128
-  lr: 0.00027006203231103715
+  lr: 0.0003916356115028821
   num_epochs: 1500
   early_stopping: 180
   betas:
   - 0.9
   - 0.999
-  weight_decay: 6.512269474642664e-05
+  weight_decay: 5.834249714079114e-06
   seed: 42
   initial_metric_epoch: 0
-  batch_norm: true
+  batch_norm: false
   dual_coefs:
-  - 2.0276570114072214
-  - 0.7701058518471267
-  - 0.001161470170095069
+  - 41.9792346004738
+  - 25.798842742839245
+  - 0.00017008099339981515
   loss: nn
