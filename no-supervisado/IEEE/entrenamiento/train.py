@@ -1,3 +1,4 @@
+# IMPORTS
 import optuna
 import torch
 import os
@@ -20,18 +21,27 @@ from src.metric import feas_and_volt_metric
 import warnings
 warnings.filterwarnings('ignore')
 
+
+# OBJETIVO OPTUNA
+
 def objective(trial):
     cfg = OmegaConf.load(args.cfg)
-    # General
+    
+    # BUSQUEDA DE HIPERPARAMETROS
+    
+    ## Entrenamiento
     lr = trial.suggest_loguniform('lr', 1e-5, 1e-2)
     batch_size = trial.suggest_categorical('batch_size', [32])
+    
+    # Data
     norm_X = trial.suggest_categorical('norm_X', [True, False])
-    batch_norm =  trial.suggest_categorical('batch_norm', [True, False])
+    
+    ## Regularaizacion
     weight_dec = trial.suggest_loguniform('weight_decay', 0.000001, 0.01)
     drop = trial.suggest_uniform('dropout', 0, 0.5)
-    # Por red
+    
+    # Penalizaciones
     if cfg.data.red == "30":    
-        # Definir los espacios de búsqueda para c_1 y c_2
         c_1 = trial.suggest_loguniform('c_1', 10, 1000)
         c_2 = trial.suggest_loguniform('c_2', 10, 1000)
         c_3 =  trial.suggest_loguniform('c_3', 1e-6, 1e-2)
@@ -41,15 +51,16 @@ def objective(trial):
         c_3 =  trial.suggest_loguniform('c_3', 1e-5, 1e-1)
     else:
         print("ERROR EN LA NET")
-    # Por arq
-    
+
+    ## Modelo
     if cfg.model.model == "GNN":
         k = trial.suggest_int('k', 2,8)
         layers =  trial.suggest_categorical('layers', [[3,32,32,4], [3,128,128,4], [3,512,512, 4], [3,32,32,32,4], [3,128,128,128,4], [3,512,512,512,4]])
     elif cfg.model.model == "FCNN":
         k = 1
         layers =  trial.suggest_categorical('layers', [[3,32,32,4], [3,128,128,4], [3,512,512, 4], [3,32,32,32,4], [3,128,128,128,4], [3,512,512,512,4]])
-    
+    batch_norm =  trial.suggest_categorical('batch_norm', [True, False])
+
     # Cargar configuración
     outdir = Path(cfg.outdir) / cfg.data.red / cfg.model.model  /  datetime.now().isoformat().split('.')[0][5:].replace('T', '_')
     weights_dir = outdir / 'weights'
@@ -96,11 +107,10 @@ def objective(trial):
     train_loader, val_loader, test_loader, norm_x = load_data(cfg.data.data_path, cfg.training.batch_size, cfg.data.normalize_X, cfg.data.red, device)
     print(len(val_loader))
 
+    # Inicializar modelo
     torch.autograd.set_detect_anomaly(True)
-
     dual_variables = init_lamdas(net, cfg.training.dual_coefs, device)
     min_vector, max_vector = get_max_min_values(net, device)
-
     num_layers = len(cfg.model.layers) - 1
     num_nodes = len(net.bus)
     if cfg.model.model=="GNN":
@@ -115,16 +125,17 @@ def objective(trial):
     num_epochs = cfg.training.num_epochs
     best_loss = 1e20
     best_epoch = 0
-    node_weights = None
-    if cfg.training.node_weights is not None:
-        node_weights = torch.ones(len(net.bus.index)).to(device)
-        node_weights[cfg.training.node_weights] = cfg.training.alpha_node_weights
 
+
+    # Corrida por epocas
     for epoch in range(num_epochs):
+        
+        # Pasada train y val
         train_loss = run_epoch(model, train_loader, optimizer, criterion, Y_line, line, Y_bus, max_ika, dual_variables, norm_x, epoch, writer)
         val_loss = evaluate(model, val_loader, criterion, Y_line, line, Y_bus, max_ika, dual_variables, norm_x, epoch, writer)
         print(f"Epoch {epoch+1}/{num_epochs}, Train Loss: {train_loss:.4f}, Val Loss: {val_loss:.4f}")
 
+        # Guardar mejor modelo
         if val_loss < best_loss:
             best_loss = val_loss
             best_model = model
@@ -165,8 +176,10 @@ def objective(trial):
         {'hparam/val_loss': best_loss})
     writer.close()
 
-    return voltaje_set_metric #+ feas_metric
+    return voltaje_set_metric
 
+
+# MAIN
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Entrenar modelo')
     parser.add_argument('--cfg', type=str, default=None, help='Path to config file')
@@ -174,7 +187,3 @@ if __name__ == '__main__':
 
     study = optuna.create_study(direction='minimize')
     study.optimize(objective, n_trials=256)
-
-    # print('Número de prueba: ', study.best_trial.number)
-    # print('Mejores hiperparámetros: ', study.best_trial.params)
-    # print('Mejor pérdida de validación: ', study.best_value)

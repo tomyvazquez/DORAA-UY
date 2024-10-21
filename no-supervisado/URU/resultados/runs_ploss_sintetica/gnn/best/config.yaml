@@ -1,0 +1,36 @@
+outdir: ../resultados/runs_ploss_sintetica/gnn
+model:
+  layers:
+  - 4
+  - 512
+  - 512
+  - 5
+  K:
+  - 3
+  - 3
+  - 3
+  arq: GNN
+  dropout: 0.09647204473059222
+data:
+  data_path: /home/nacho/unsup_uru/data/reduru_sintetica
+  red: uru
+  red_path: /home/nacho/unsup_uru/data/red_uru_final.p
+  normalize_X: false
+training:
+  device: cuda
+  batch_size: 128
+  lr: 0.00027006203231103715
+  num_epochs: 1500
+  early_stopping: 180
+  betas:
+  - 0.9
+  - 0.999
+  weight_decay: 6.512269474642664e-05
+  seed: 42
+  initial_metric_epoch: 0
+  batch_norm: true
+  dual_coefs:
+  - 2.0276570114072214
+  - 0.7701058518471267
+  - 0.001161470170095069
+  loss: nn

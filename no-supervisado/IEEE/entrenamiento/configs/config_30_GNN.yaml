@@ -2,28 +2,25 @@ outdir: ../resultados/runs
 
 model:
   model: 'GNN'
-  layers: [] #Optuna
-  K: [] #Optuna
-
+  layers: [] # Optuna
+  K: [] # Optuna
 
 data:
-  data_path: /home/iboero/unsup_ieee/data
+  data_path: ../data
   red: '30' # 30 o 118
   red_path: None
-  normalize_X: True
+  normalize_X: False # OPTUNA
 
 training:
   device: 'cuda'
-  batch_size: -1 #Optuna
-  lr: -1 #Optuna
+  use_edge_weights: True
   num_epochs: 1500
   early_stopping: 30
   betas: [0.9, 0.999]
-  weight_decay: 0
   seed: 42
-  initial_metric_epoch: 0
-  batch_norm: False # Booleano
-  use_edge_weights: True #Booleano
-  dual_coefs: [] #Optuna # dual_acflow_real, dual_acflow_imag, dual_lines 
-  node_weights: [ 1, 21, 26, 22, 12] # nodos (generadores) que se controlan con la variable alpha
-  alpha_node_weights: 0
+  dropout: -1 # Optuna
+  weight_decay: -1 # Optuna
+  batch_norm: False # Optuna
+  dual_coefs: [] #Optuna 
+  batch_size: -1 #Optuna
+  lr: -1 #Optuna

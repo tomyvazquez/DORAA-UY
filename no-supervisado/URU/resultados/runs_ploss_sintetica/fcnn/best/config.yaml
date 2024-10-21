@@ -1,0 +1,36 @@
+outdir: ../resultados/runs_ploss_sintetica/fcnn
+model:
+  layers:
+  - 4
+  - 1024
+  - 1024
+  - 5
+  K:
+  - 1
+  - 1
+  - 1
+  arq: FCNN
+  dropout: 0.42743593962964305
+data:
+  data_path: /home/nacho/unsup_uru/data/reduru_sintetica
+  red: uru
+  red_path: /home/nacho/unsup_uru/data/red_uru_final.p
+  normalize_X: true
+training:
+  device: cuda
+  batch_size: 256
+  lr: 0.00025455185181060957
+  num_epochs: 1500
+  early_stopping: 180
+  betas:
+  - 0.9
+  - 0.999
+  weight_decay: 6.221145934581513e-06
+  seed: 42
+  initial_metric_epoch: 0
+  batch_norm: false
+  dual_coefs:
+  - 2.040759131035877
+  - 0.2694582384303763
+  - 1.071612806847335e-06
+  loss: nn

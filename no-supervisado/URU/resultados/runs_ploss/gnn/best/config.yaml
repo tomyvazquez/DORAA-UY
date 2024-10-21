@@ -1,0 +1,36 @@
+outdir: ../resultados/runs_ploss/gnn
+model:
+  layers:
+  - 4
+  - 128
+  - 128
+  - 128
+  - 5
+  K:
+  - 6
+  - 6
+  - 6
+  - 6
+  arq: GNN
+data:
+  data_path: /home/nacho/unsup_uru/data/reduru_finalll_secuencial
+  red: uru
+  red_path: /home/nacho/unsup_uru/data/red_uru_final.p
+  normalize_X: false
+training:
+  device: cuda
+  batch_size: 16
+  lr: 0.0004047481000923846
+  num_epochs: 200
+  early_stopping: 180
+  betas:
+  - 0.9
+  - 0.999
+  weight_decay: 0
+  seed: 42
+  initial_metric_epoch: 0
+  batch_norm: false
+  dual_coefs:
+  - 0.4837328137805052
+  - 0.20593006214814719
+  - 0
