@@ -143,6 +143,21 @@ Por último, dentro de cada carpeta se pueden encontrar notebooks para el análi
 
 Este notebook abarca distintos tipos de análisis para el mejor modelo, con los datos de test. En primer lugar se muestra tanto el valor de la métrica obtenida para este modelo, así como gráficas de los voltajes predichos para los generadores comparados con los valores objetivo, ordenados de menor a mayor (esto únicamente para el caso de aprendizaje supervisado, que es donde se quiere seguir el comportamiento del optimizador). Luego se realiza un análisis de cuán bueno fue el modelo como solución del ORPD. Para esto, se realizan histogramas de comparación de los costos muestra a muestra entre el modelo y el optimizador, o contra modelos básicos, calculando el cociente entre los costos. Por último, se hace un análisis de cuán factibles son las soluciones según el porcentaje por el cual las restricciones de la red son violadas, así como un análisis de tiempos de inferencia comparado con el optimizador.
 
+## Para citar nuestro trabajo
+Para usar nuestro trabajo por favor utilizar la siguiente cita en formato BibTeX:
+
+```
+@misc{GNN4OPFuru2024,
+  author = {Boero, Ignacio and Diaz, Santiago and Vazquez, Tomas},
+  title = {DORAA-UY},
+  year = {2024},
+  version = {1.0.0},
+  url = {https://github.com/tomyvazquez/DORAA-UY},
+  note = {GitHub repository},
+}
+```
+
+
 
 
 
