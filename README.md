@@ -157,6 +157,9 @@ Para usar nuestro trabajo por favor utilizar la siguiente cita en formato BibTeX
 }
 ```
 
+## Licencia
+
+Este proyecto está licenciado bajo los términos de la [Licencia MIT](LICENSE).
 
 
 
