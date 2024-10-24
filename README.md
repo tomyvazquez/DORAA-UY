@@ -7,7 +7,7 @@
 [![Facultad de Ingeniería](https://img.shields.io/badge/Facultad%20de%20Ingeniería-UdelaR-blue)](https://www.fing.edu.uy)
 
 
-# DORAA-UY (Despacho Óptimo de Reactiva mediante Aprendizaje Automático)
+# DORAA-UY - Optimal Reactive Power Dispatch using Machine Learning
 
 This repository is part of the thesis project developed at the Facultad de Ingeniería of UdelaR. The main objective is to demonstrate how machine learning techniques can be applied to efficiently solve the Optimal Reactive Power Dispatch (ORPD) problem in the Uruguayan electrical grid. In recent years, the exploration of these techniques for decision-making on control variables in electrical networks has been a focus of study by the community, making it a hot topic today. This thesis tackles the problem using supervised and unsupervised learning techniques, and neural network architectures such as FCNN (Fully Connected Neural Networks) and GNN (Graph Neural Networks). This work builds upon the efforts of Damian Owerko, Fernando Gama, and Alejandro Ribeiro ([link1](https://arxiv.org/abs/1910.09658), [link2](https://arxiv.org/abs/2210.09277)).
 
